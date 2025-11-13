@@ -1,20 +1,22 @@
 package se.nackademin.devops24.pingurl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import se.nackademin.devops24.pingurl.model.PingedURL;
-import se.nackademin.devops24.pingurl.repository.URLRepository;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import se.nackademin.devops24.pingurl.model.PingedURL;
+import se.nackademin.devops24.pingurl.repository.URLRepository;
 
 @Service
 public class PingUrlService {
@@ -39,6 +41,20 @@ public class PingUrlService {
         urlRepository.delete(name);
     }
 
+    public void pingOneUrl(String name) {
+        var url = urlRepository.getUrls()
+                .stream()
+                .filter(u -> u.getName().equals(name))
+                .findFirst()
+                .orElseThrow();
+        pingUrl(url);
+    }
+
+
+
+
+
+
     @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
     public void onesPerMinute() {
         var pingedURLs = getPingUrls();
@@ -59,7 +75,7 @@ public class PingUrlService {
             } else {
                 pingedURL.setResult("failure");
             }
-
+            pingedURL.setLastPinged(LocalDateTime.now());
             urlRepository.update(pingedURL);
         } catch (IOException | InterruptedException | URISyntaxException e) {
             logger.error("Ping failed", e);

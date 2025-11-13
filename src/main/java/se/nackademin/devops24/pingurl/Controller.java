@@ -1,5 +1,7 @@
 package se.nackademin.devops24.pingurl;
 
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import se.nackademin.devops24.pingurl.model.PingedURL;
 
-import java.util.Collection;
+import se.nackademin.devops24.pingurl.model.PingedURL;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -38,4 +39,19 @@ public class Controller {
         pingUrlService.addPingUrl(url, name);
         return new RedirectView("/");
     }
+
+    @PostMapping("/delete")
+    public RedirectView deleteUrl(@RequestParam String name) {
+        pingUrlService.deleteUrlFromPing(name);
+        return new RedirectView("/");
+    }
+
+
+    @PostMapping("/ping-now")
+    public RedirectView pingNow(@RequestParam String name) {
+        pingUrlService.pingOneUrl(name);
+        return new RedirectView("/");
+    }
+
+
 }
