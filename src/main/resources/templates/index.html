@@ -62,10 +62,32 @@
 <body>
     <img src="/logotype.png" alt="Logotype" style="max-width: 200px; height: auto; display: block; margin-bottom: 20px;">
     <h1>Welcome to the place where URLs goes to get pinged</h1>
+
+
+    <div th:if="${errorMessage}" 
+        style="background-color:#ffdddd; padding:10px; border:1px solid red; margin-bottom:15px;">
+        <strong>Error:</strong> <span th:text="${errorMessage}"></span>
+    </div>
+
+
+
     <div th:if="${#lists.isEmpty(urls)}">
         <p>No URLs have been added yet. Please add a new URL using the form below.</p>
     </div>
     <table>
+
+
+
+        <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Created</th>
+            <th>Last ping status</th>
+            <th>Last ping time</th>
+            <th></th>
+            <th></th>
+        </tr>
+
         <tr th:each="url: ${urls}">
             <td th:text="${url.getName()}">Name...</td>
             <td th:text="${url.getUrl()}">URL...</td>
