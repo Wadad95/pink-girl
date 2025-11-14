@@ -1,8 +1,6 @@
 package se.nackademin.devops24.pingurl;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -77,9 +75,8 @@ public class PingUrlService {
             }
             pingedURL.setLastPinged(LocalDateTime.now());
             urlRepository.update(pingedURL);
-        } catch (IOException | InterruptedException | URISyntaxException e) {
-            logger.error("Ping failed", e);
-            throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Invalid or unreachable URL: " + pingedURL.getUrl());
         }
     }
 }

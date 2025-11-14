@@ -45,12 +45,18 @@ public class Controller {
         return new RedirectView("/");
     }
 
-
     @PostMapping("/ping-now")
-    public RedirectView pingNow(@RequestParam String name) {
-        pingUrlService.pingOneUrl(name);
+    public RedirectView pingNow(@RequestParam String name,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            pingUrlService.pingOneUrl(name);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+
         return new RedirectView("/");
     }
+
 
 
 
