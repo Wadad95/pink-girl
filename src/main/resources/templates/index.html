@@ -6,11 +6,11 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f4;
+            background-color: #FFC0CB;
             color: #333;
         }
         h1 {
-            color: #0056b3;
+            color: #FF1493;
         }
         table {
             width: 100%;
@@ -25,7 +25,7 @@
             text-align: left;
         }
         th {
-            background-color: #0056b3;
+            background-color: #FF1493;
             color: white;
         }
         tr:nth-child(even) {
@@ -46,7 +46,7 @@
             border-radius: 4px;
         }
         form input[type="submit"] {
-            background-color: #28a745;
+            background-color: #FF1493;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -55,7 +55,7 @@
             font-size: 16px;
         }
         form input[type="submit"]:hover {
-            background-color: #218838;
+            background-color: #FF69B4;
         }
     </style>
 </head>
@@ -100,7 +100,7 @@
             <td>
                 <form action="/ping-now" method="post" style="display:inline; background:none; padding:0; margin:0; box-shadow:none;">
                     <input type="hidden" name="name" th:value="${url.getName()}">
-                    <button type="submit" style="background-color:#007bff; color:white; border:none; padding:3px 6px; font-size:12px; border-radius:3px;">
+                    <button type="submit" style="background-color:#EE82EE; color:white; border:none; padding:3px 6px; font-size:12px; border-radius:3px;">
                         Ping now
                     </button>
                 </form>

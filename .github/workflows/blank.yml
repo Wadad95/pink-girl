@@ -28,6 +28,9 @@ jobs:
       - name: Run tests
         run: ./mvnw test
 
+      - name: Create deployment directory
+        run: sudo mkdir -p /opt/pingurl
+
       - name: Copy JAR to deployment directory
         run: sudo cp target/pingurl-0.0.1-SNAPSHOT.jar /opt/pingurl/pingurl.jar
 
